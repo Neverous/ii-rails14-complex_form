@@ -1,0 +1,37 @@
+%h1 Report
+%ul
+  - Project.all.each do |project|
+    %li
+      %strong= project.title
+      %br
+      = project.description
+      %br
+      - project.categories.each do |category|
+        %em= category.title
+
+      %br
+      %strong Tasks without milestones
+      %br
+      %ul
+        - project.tasks.select { |task| task.milestone_ids.empty? } .each do |task|
+          %li
+            %strong= task.title
+            %br
+            = task.description
+
+      %br
+      %strong Milestones
+      %ul
+        - project.milestones.each do |milestone|
+          %li
+            %strong= milestone.title
+            = milestone.description
+            %ul
+              - milestone.tasks.each do |task|
+                %li
+                  %strong= task.title
+                  %br
+                  = task.description
+
+            %br
+

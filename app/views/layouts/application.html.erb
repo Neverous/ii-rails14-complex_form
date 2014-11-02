@@ -8,7 +8,11 @@
 </head>
 <body>
 
-    <%= link_to 'categories', categories_path %> | <%= link_to 'projects', projects_path %> | <%= link_to 'milestones', milestones_path %> | <%= link_to 'tasks', tasks_path %> <br />
+        <%= link_to 'report',       report_index_path %>
+    |   <%= link_to 'categories',   categories_path %>
+    |   <%= link_to 'projects',     projects_path %>
+    |   <%= link_to 'milestones',   milestones_path %>
+    |   <%= link_to 'tasks',        tasks_path %>
     <hr />
 
 <%= yield %>
