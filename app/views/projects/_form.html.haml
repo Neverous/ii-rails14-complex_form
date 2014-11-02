@@ -20,7 +20,6 @@
       { selected: f.object.category_ids },
       { multiple: true }
 
-
   %b Milestones
   = f.fields_for :milestones do |ff|
     .field
@@ -34,6 +33,7 @@
     - if ff.object.persisted?
       = link_to 'Edit', edit_milestone_path(ff.object)
 
+  %br
   %b Tasks
   = f.fields_for :tasks do |ff|
     .field
@@ -45,8 +45,9 @@
       = ff.text_area    :description
 
     .field
-      = ff.label        :milestones
-      = ff.select       :milestones
+      = ff.label                :milestone_ids
+      = ff.collection_select    :milestone_ids, Milestone.where(project_id: f.object.id), :id, :title,
+        { selected: ff.object.milestone_ids }, { multiple: true, include_blank: true }
 
     - if ff.object.persisted?
       = link_to 'Edit', edit_task_path(ff.object)
