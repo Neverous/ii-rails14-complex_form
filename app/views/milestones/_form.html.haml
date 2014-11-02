@@ -7,13 +7,35 @@
           %li= msg
 
   .field
-    = f.label :title
-    = f.text_field :title
+    = f.label       :title
+    = f.text_field  :title
+
   .field
-    = f.label :description
-    = f.text_area :description
+    = f.label       :description
+    = f.text_area   :description
+
   .field
-    = f.label :project
-    = f.text_field :project
+    = f.label               :project_id
+    = f.collection_select   :project_id, Project.all, :id, :title,
+      { selected: f.object.project_id }
+
+  %b Tasks
+  = f.fields_for :tasks do |ff|
+    .field
+      = ff.label        :title
+      = ff.text_field   :title
+
+    .field
+      = ff.label        :description
+      = ff.text_area    :description
+
+    .field
+      = ff.label                :milestone_ids
+      = ff.collection_select    :milestone_ids, Milestone.where(project_id: f.object.project_id), :id, :title,
+        { selected: ff.object.milestone_ids }, { multiple: true }
+
+    - if ff.object.persisted?
+      = link_to 'Edit', edit_task_path(ff.object)
+
   .actions
     = f.submit 'Save'

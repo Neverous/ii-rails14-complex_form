@@ -69,6 +69,6 @@ class MilestonesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def milestone_params
-      params.require(:milestone).permit(:title, :description, :project_id)
+      params.require(:milestone).permit(:title, :description, :project_id, tasks_attributes: [:id, :title, :description, milestone_ids: []])
     end
 end
