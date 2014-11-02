@@ -32,7 +32,7 @@
     .field
       = ff.label                :milestone_ids
       = ff.collection_select    :milestone_ids, Milestone.where(project_id: f.object.project_id), :id, :title,
-        { selected: ff.object.milestone_ids }, { multiple: true }
+        { selected: ff.object.milestone_ids, include_blank: true }, { multiple: true }
 
     - if ff.object.persisted?
       = link_to 'Edit', edit_task_path(ff.object)

@@ -22,7 +22,7 @@
   .field
     = f.label               :milestone_ids
     = f.collection_select   :milestone_ids, Milestone.where(project_id: f.object.project_id), :id, :title,
-      { selected: f.object.milestone_ids }, { multiple: true, include_blank: true }
+      { selected: f.object.milestone_ids, include_blank: true }, { multiple: true }
 
   .actions
     = f.submit 'Save'
