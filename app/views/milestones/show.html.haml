@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @milestone.title
+%p
+  %b Description:
+  = @milestone.description
+%p
+  %b Project:
+  = @milestone.project
+
+= link_to 'Edit', edit_milestone_path(@milestone)
+\|
+= link_to 'Back', milestones_path

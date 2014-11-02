@@ -1,0 +1,55 @@
+= form_for @project do |f|
+  - if @project.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+      %ul
+        - @project.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label       :title
+    = f.text_field  :title
+
+  .field
+    = f.label       :description
+    = f.text_area   :description
+
+  .field
+    = f.label               :category_ids
+    = f.collection_select   :category_ids, Category.all, :id, :title,
+      { selected: f.object.category_ids },
+      { multiple: true }
+
+
+  %b Milestones
+  = f.fields_for :milestones do |ff|
+    .field
+      = ff.label        :title
+      = ff.text_field   :title
+
+    .field
+      = ff.label        :description
+      = ff.text_area    :description
+
+    - if ff.object.persisted?
+      = link_to 'Edit', edit_milestone_path(ff.object)
+
+  %b Tasks
+  = f.fields_for :tasks do |ff|
+    .field
+      = ff.label        :title
+      = ff.text_field   :title
+
+    .field
+      = ff.label        :description
+      = ff.text_area    :description
+
+    .field
+      = ff.label        :milestones
+      = ff.select       :milestones
+
+    - if ff.object.persisted?
+      = link_to 'Edit', edit_task_path(ff.object)
+
+  .actions
+    = f.submit 'Save'
