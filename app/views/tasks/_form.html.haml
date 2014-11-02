@@ -7,13 +7,22 @@
           %li= msg
 
   .field
-    = f.label :title
-    = f.text_field :title
+    = f.label       :title
+    = f.text_field  :title
+
   .field
-    = f.label :description
-    = f.text_area :description
+    = f.label       :description
+    = f.text_area   :description
+
   .field
-    = f.label :project
-    = f.text_field :project
+    = f.label               :project_id
+    = f.collection_select   :project_id, Project.all, :id, :title,
+      { selected: f.object.project_id }
+
+  .field
+    = f.label               :milestone_ids
+    = f.collection_select   :milestone_ids, Milestone.where(project_id: f.object.project_id), :id, :title,
+      { selected: f.object.milestone_ids }, { multiple: true, include_blank: true }
+
   .actions
     = f.submit 'Save'
